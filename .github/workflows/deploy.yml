@@ -4,7 +4,7 @@ on:
   workflow_dispatch: {}
 
 env:
-  applicationfolder: spring-boot-hello-world-example
+  applicationfolder: ec2-codedeploy/spring-boot-hello-world-example
   AWS_REGION: us-east-1
   S3BUCKET: githubcodedeployec2-webappdeploymentbucket-1w9iiu65ed1yn
 

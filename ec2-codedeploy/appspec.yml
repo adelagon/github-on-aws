@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: /aws/ec2-codedeploy
+  - source: /ec2-codedeploy/aws
     destination: /usr/local/codedeployresources
 hooks:
   ApplicationStop:

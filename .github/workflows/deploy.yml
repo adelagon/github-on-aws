@@ -1,7 +1,9 @@
 name: Build and Deploy
 
 on:
-  workflow_dispatch: {}
+  push:
+    branches: [ main ]
+  pull_request:
 
 env:
   applicationfolder: ec2-codedeploy/spring-boot-hello-world-example
@@ -39,7 +41,7 @@ jobs:
 
       - name: ls
         run: ls
-        
+
       - name: Build and Package Maven
         id: package
         working-directory: ${{ env.applicationfolder }}

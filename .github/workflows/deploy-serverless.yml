@@ -15,7 +15,7 @@ env:
 
 jobs:
   build:
-    name: Build and Package
+    name: Build and Deploy
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -28,7 +28,7 @@ jobs:
         name: Setup AWS SAM
         with:
           use-installer: true
-      - uses: aws-actions/configure-aws-credentials@v1
+      - uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
           role-session-name: GitHub-Action-Role
@@ -38,16 +38,6 @@ jobs:
         working-directory: ${{ env.applicationfolder }}
         name: SAM Build
       
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: aws-actions/setup-sam@v2
-        name: Setup AWS SAM
-        with:
-          use-installer: true
-          
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name GHAServerless --s3-bucket ${{ env.S3BUCKET }} --capabilities CAPABILITY_IAM
         working-directory: ${{ env.applicationfolder }}
         name: SAM Deploy

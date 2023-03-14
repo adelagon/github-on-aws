@@ -70,12 +70,13 @@ jobs:
           role-session-name: GitHub-Action-Role
           aws-region: ${{ env.AWS_REGION }}
       - name: Create Deployment
+        id: create-deployment
         run: |
           echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
           commit_hash=`git rev-parse HEAD`
-          deployment_id=`aws deploy create-deployment --application-name CodeDeployAppNameWithASG --deployment-group-name CodeDeployGroupName --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures`
+          deployment_id=`aws deploy create-deployment --application-name CodeDeployAppNameWithASG --deployment-group-name CodeDeployGroupName --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures` >> $GITHUB_OUTPUT
       - name: Check Deployment Status
         run: |
-          echo $deployment_id
+          echo ${{ steps.create-deployment.outputs }}
           aws deploy get-deployment --deployment-id $deployment_id
           exit 0

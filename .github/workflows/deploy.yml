@@ -87,7 +87,11 @@ jobs:
               echo "${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} deployed successfully"
               exit 0
             fi
+            if [ "$status" == "Failed" ]; then
+              echo "${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} deployment failed!"
+              exit 1
+            fi
             sleep 3
           done
-          echo "CodeDeploy ${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} to failed"
+          echo "CodeDeploy ${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} has reached maximum wait timeout!"
           exit 1

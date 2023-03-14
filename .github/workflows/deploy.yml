@@ -2,7 +2,10 @@ name: Build and Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths:
+      - ec2-codedeploy/**
   pull_request:
 
 env:

@@ -43,6 +43,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: aws-actions/setup-sam@v2
+        name: Setup AWS SAM
+        with:
+          use-installer: true
+          
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name GHAServerless --s3-bucket ${{ env.S3BUCKET }} --capabilities CAPABILITY_IAM
         working-directory: ${{ env.applicationfolder }}
         name: SAM Deploy

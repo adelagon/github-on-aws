@@ -77,5 +77,5 @@ jobs:
       - name: Check Deployment Status
         run: |
           echo $deployment_id
-          aws get-deployment --deployment-id $deployment_id
+          aws deploy get-deployment --deployment-id $deployment_id
           exit 0

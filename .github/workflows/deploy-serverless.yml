@@ -38,7 +38,11 @@ jobs:
         working-directory: ${{ env.applicationfolder }}
         name: SAM Build
       
-    deploy:
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name GHAServerless --s3-bucket ${{ env.S3BUCKET }} --capabilities CAPABILITY_IAM
         working-directory: ${{ env.applicationfolder }}
         name: SAM Deploy

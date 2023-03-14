@@ -86,6 +86,8 @@ jobs:
             if [ "$status" == "Succeeded" ]; then
               echo "${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} deployed successfully"
               exit 0
+            fi
             sleep 3
           done
-          exit 0
+          echo "CodeDeploy ${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} to failed"
+          exit 1

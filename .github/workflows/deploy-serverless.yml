@@ -14,7 +14,7 @@ env:
   S3BUCKET: githubcodedeployec2-webappdeploymentbucket-1w9iiu65ed1yn
 
 jobs:
-  deploy:
+  build:
     name: Build and Package
     runs-on: ubuntu-latest
     permissions:
@@ -38,6 +38,7 @@ jobs:
         working-directory: ${{ env.applicationfolder }}
         name: SAM Build
       
+    deploy:
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name GHAServerless --s3-bucket ${{ env.S3BUCKET }} --capabilities CAPABILITY_IAM
         working-directory: ${{ env.applicationfolder }}
         name: SAM Deploy

@@ -78,6 +78,12 @@ jobs:
           echo "DEPLOYMENT_ID=$deployment_id" >> $GITHUB_OUTPUT
       - name: Check Deployment Status
         run: |
-          echo ${{ steps.create-deployment.outputs.DEPLOYMENT_ID }}
-          aws deploy get-deployment --deployment-id ${{ steps.create-deployment.outputs.DEPLOYMENT_ID }}
+          echo "Waiting for CodeDeploy ${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} to finish"
+          do
+            status=`aws deploy get-deployment --deployment-id ${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} | jq '.deploymentInfo.status'`
+            echo $status
+            if [ "$status" == "Succeeded" ]; then
+              echo "${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} deployed successfully"
+              exit 0
+            sleep 3
           exit 0

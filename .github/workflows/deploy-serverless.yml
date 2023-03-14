@@ -37,7 +37,7 @@ jobs:
         working-directory: ${{ env.applicationfolder }}
         name: SAM Build
       
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name GHAServerless
         working-directory: ${{ env.applicationfolder }}
         name: SAM Deploy
   

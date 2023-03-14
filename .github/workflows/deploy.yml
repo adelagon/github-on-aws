@@ -83,11 +83,11 @@ jobs:
           do
             status=`aws deploy get-deployment --deployment-id ${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} | jq '.deploymentInfo.status'`
             echo "Current Status: $status"
-            if [ "$status" == "Succeeded" ]; then
+            if [ "$status" == '"Succeeded"' ]; then
               echo "${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} deployed successfully"
               exit 0
             fi
-            if [ "$status" == "Failed" ]; then
+            if [ "$status" == '"Failed"' ]; then
               echo "${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} deployment failed!"
               exit 1
             fi

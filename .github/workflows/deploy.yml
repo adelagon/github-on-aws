@@ -79,6 +79,7 @@ jobs:
       - name: Check Deployment Status
         run: |
           echo "Waiting for CodeDeploy ${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} to finish"
+          for i in `seq 1 10`;
           do
             status=`aws deploy get-deployment --deployment-id ${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} | jq '.deploymentInfo.status'`
             echo $status
@@ -86,4 +87,5 @@ jobs:
               echo "${{ steps.create-deployment.outputs.DEPLOYMENT_ID }} deployed successfully"
               exit 0
             sleep 3
+          done
           exit 0

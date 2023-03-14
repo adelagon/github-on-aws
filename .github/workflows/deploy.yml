@@ -74,7 +74,8 @@ jobs:
         run: |
           echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
           commit_hash=`git rev-parse HEAD`
-          deployment_id=`aws deploy create-deployment --application-name CodeDeployAppNameWithASG --deployment-group-name CodeDeployGroupName --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures` >> $GITHUB_OUTPUT
+          deployment_id=`aws deploy create-deployment --application-name CodeDeployAppNameWithASG --deployment-group-name CodeDeployGroupName --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash --ignore-application-stop-failures`
+          echo $deployment_id
       - name: Check Deployment Status
         run: |
           echo ${{ steps.create-deployment.outputs.deployment_id }}
